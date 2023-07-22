@@ -8,4 +8,4 @@ Feature: Jira
 
 
   Scenario: Create a Project
-    Given I do API stuff
+    Given I log into Jira Software

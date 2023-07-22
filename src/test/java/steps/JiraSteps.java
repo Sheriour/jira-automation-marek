@@ -41,6 +41,15 @@ public class JiraSteps
         Assert.assertTrue(projectsPage.isProjectPageHeaderVisible(), "Could not navigate to Jira Software!");
     }
 
+    @Given("I log into Jira Software")
+    public void iLogIntoJiraSoftware()
+    {
+        iLoginToAtlassian();
+        iNavigateToJiraSoftware();
+        iAmOnTheProjectListPage();
+    }
+
+
 
     @Then("I do API stuff")
     public void iDoApiStuff()
