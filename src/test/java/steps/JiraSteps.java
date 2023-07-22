@@ -44,6 +44,7 @@ public class JiraSteps
     @Given("I log into Jira Software")
     public void iLogIntoJiraSoftware()
     {
+        //Compound step
         iLoginToAtlassian();
         iNavigateToJiraSoftware();
         iAmOnTheProjectListPage();
