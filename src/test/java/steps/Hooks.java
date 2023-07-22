@@ -6,6 +6,11 @@ import system.DriverCoordinator;
 public class Hooks
 {
     @After
+    public void cleanup(){
+
+    }
+
+    @After
     public void quitDriver(){
         if (DriverCoordinator.hasDriver())
             DriverCoordinator.getWebDriver().quit();

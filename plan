@@ -1,0 +1,40 @@
+
+Verify username after login?
+
+Projects
+- Verify projects are listed
+- Verify you can open a project - see swim lanes
+- Create
+- Modify
+- Delete
+
+API system
+- Use env properties for
+    - clientID
+    - secret
+    - refresho
+- extract the token from API response
+- PoC the API integration
+
+haehs1
+
+Jira basic auth
+ATATT3xFfGF00B8IKKUHbfg60cctSK84Cq2n7rbfFhoCAhDRCah0v93SwvCyPOK5Ij69kYugWUznmrDJowGqVcjr_ddMEQMtByHajZztCQMxaNHnQ4Ntj_k_bANdKQNe6nTbRzqkH2sjS-FHkKN4sdQKbvCQr-nJ3sR-aKWzWNryYj7wRXAZ-Ys=8E39C895
+
+https://marek-dziekan-automation.atlassian.net/wiki/rest/api/space
+
+Getting Jira Refresh Token API to work (https://developer.atlassian.com/cloud/confluence/oauth-2-3lo-apps)
+- You login to Jira Developer console
+- Create an app
+- Setup OAuth 2.0
+- If you hit "configure" in Authorization for OAuth 2.0, you get the "Authorization URL generator" link at the bottom,
+one with "https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id......."
+- In that link, change state=${YOUR_USER_BOUND_VALUE} to state=whateverstringofcharacters
+- IF you are generating a refresh token (yes, you are), add "%20offline_access" to scopes
+- Go to that URL in browser and allow access via SSO
+- It will redirect you to you callback URL, which is most likely a fake website. But the URL will have you code=<here>
+- You shoot that code at the Jira by using grant_type": "authorization_code" and "code" param
+- In response, you should get both access_token and refresh_token
+- From this point, you can instead auth with grant_type": "refresh_token" and "refresh_token" param
+- Each time you use this, you get a new Access Token, and a new refresh token to do this again
+- Previous refresh token gets invalidated each time
