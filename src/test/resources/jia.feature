@@ -9,3 +9,7 @@ Feature: Jira
 
   Scenario: Create a Project
     Given I log into Jira Software
+    When I click the Create Project button
+    And I select "Kanban" project template
+    And I use currently selected project template
+    And I select team managed project type

@@ -1,17 +1,19 @@
 package system;
 
+import models.JiraProject;
+
 import java.util.ArrayList;
 
 public class EntityManager {
 
-    static ArrayList<String> createdProjects = new ArrayList<>();
+    static ArrayList<JiraProject> createdProjects = new ArrayList<>();
 
-    public static void registerProject(String projectId) {
-        createdProjects.add(projectId);
+    public static void registerProject(JiraProject project) {
+        createdProjects.add(project);
     }
 
     public static void deleteEntities(){
-        for (String id : createdProjects)
-            JiraApi.GetInstance().sendDelete("/3/project/" + id);
+        for (JiraProject project : createdProjects)
+            JiraApi.GetInstance().sendDelete("/3/project/" + project.Id);
     }
 }

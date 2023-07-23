@@ -6,7 +6,7 @@ import org.testng.Assert;
 import pages.AtlassianLoginPage;
 import pages.AtlassianStartPage;
 import pages.JiraProjectsPage;
-import system.JiraApi;
+import system.PageRepository;
 
 @Slf4j
 public class JiraSteps
@@ -50,11 +50,33 @@ public class JiraSteps
         iAmOnTheProjectListPage();
     }
 
-
-
-    @Then("I do API stuff")
-    public void iDoApiStuff()
+    @And("I click the Create Project button")
+    public void iClickTheCreateProjectButton()
     {
-        JiraApi.GetInstance().sendDelete("/3/project/10002");
+        PageRepository.getPage(JiraProjectsPage.class).createNewProject();
+    }
+
+    @And("I select {string} project template")
+    public void iSelectProjectTemplate(String projectTemplateName)
+    {
+        PageRepository.getPage(JiraProjectsPage.class).selectProjectTemplate(projectTemplateName);
+    }
+
+    @And("I use currently selected project template")
+    public void iUseCurrentlySelectedProjectTemplate()
+    {
+        PageRepository.getPage(JiraProjectsPage.class).useProjectTemplate();
+    }
+
+    @And("I select team managed project type")
+    public void iSelectTeamManagedProjectType()
+    {
+        PageRepository.getPage(JiraProjectsPage.class).selectTeamManagedProjectType();
+    }
+
+    @And("I select company managed project type")
+    public void iSelectCompanyManagedProjectType()
+    {
+        PageRepository.getPage(JiraProjectsPage.class).selectCompanyManagedProjectType();
     }
 }

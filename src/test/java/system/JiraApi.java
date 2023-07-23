@@ -33,6 +33,7 @@ public class JiraApi {
         return reqSpec.when().get(path);
     }
 
+    //        JiraApi.GetInstance().sendDelete("/3/project/10002");
     public Response sendDelete(String path){
         return reqSpec.when().delete(path);
     }
