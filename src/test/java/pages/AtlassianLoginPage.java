@@ -3,13 +3,12 @@ package pages;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static system.DriverCoordinator.getWait;
 import static system.DriverCoordinator.getWebDriver;
+import static utils.WebElementUtils.waitAndClick;
+import static utils.WebElementUtils.waitAndFillField;
 
-public class AtlassianLoginPage extends AbstractPage
-{
+public class AtlassianLoginPage {
     @FindBy(how = How.ID, using = "username")
     WebElement usernameInput;
     @FindBy(how = How.ID, using = "password")
@@ -22,22 +21,12 @@ public class AtlassianLoginPage extends AbstractPage
     }
 
     public void enterUsername(String username){
-        getWait()
-                .until(ExpectedConditions.elementToBeClickable(usernameInput));
-        usernameInput.clear();
-        usernameInput.sendKeys(username);
-        getWait()
-                .until(ExpectedConditions.elementToBeClickable(submit))
-                .click();
+        waitAndFillField(usernameInput, username);
+        waitAndClick(submit);
     }
 
-    public void enterPassword(String username){
-        getWait()
-                .until(ExpectedConditions.elementToBeClickable(passwordInput));
-        passwordInput.clear();
-        passwordInput.sendKeys(username);
-        getWait()
-                .until(ExpectedConditions.elementToBeClickable(submit))
-                .click();
+    public void enterPassword(String password){
+        waitAndFillField(passwordInput, password);
+        waitAndClick(submit);
     }
 }

@@ -8,9 +8,10 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static system.DriverCoordinator.getWait;
+import static utils.WebElementUtils.*;
 
 @Slf4j
-public class JiraProjectsPage extends  AbstractPage {
+public class JiraProjectsPage {
 
     @FindBy(how = How.XPATH, using = "//h1[text()='Projects']")
     WebElement projectPageHeader;
@@ -42,65 +43,27 @@ public class JiraProjectsPage extends  AbstractPage {
     }
 
     public void createNewProject(){
-        try {
-            getWait().until(ExpectedConditions.elementToBeClickable(createProjectButton)).click();
-        }
-        catch (Exception e){
-            log.error("Could not click the Create Project button!");
-            throw e;
-        }
+        waitAndClick(createProjectButton, "Could not click the Create Project button!");
     }
 
     public void useProjectTemplate(){
-        try {
-            getWait()
-                    .until(ExpectedConditions.elementToBeClickable(useTemplateButton))
-                    .click();
-        }
-        catch (Exception e){
-            log.error("Could not use a project template!");
-            throw e;
-        }
+        waitAndClick(useTemplateButton, "Could not use a project template!");
     }
 
     public void selectProjectTemplate(String projectTemplateName){
-        try {
-            By templateBy = getProjectTemplateButtonBy(projectTemplateName);
-            getWait()
-                    .until(ExpectedConditions.elementToBeClickable(templateBy))
-                    .click();
-        }
-        catch (Exception e){
-            log.error("Could not select a Software Development project template " + projectTemplateName);
-            throw e;
-        }
+        By templateBy = getProjectTemplateButtonBy(projectTemplateName);
+        waitAndClick(
+                templateBy, "Could not select a Software Development project template " + projectTemplateName
+        );
     }
 
     public void selectTeamManagedProjectType(){
-        try {
-            getWait()
-                    .until(ExpectedConditions.elementToBeClickable(selectTeamManagedButton))
-                    .click();
-        }
-        catch (Exception e){
-            log.error("Could not select a Team Managed project type");
-            throw e;
-        }
+        waitAndClick(selectTeamManagedButton, "Could not select a Team Managed project type");
     }
 
     public void selectCompanyManagedProjectType(){
-        try {
-            getWait()
-                    .until(ExpectedConditions.elementToBeClickable(selectCompanyManagedButton))
-                    .click();
-        }
-        catch (Exception e){
-            log.error("Could not select a Company Managed project type");
-            throw e;
-        }
+        waitAndClick(selectCompanyManagedButton, "Could not select a Company Managed project type");
     }
-
-
 
     public boolean isProjectVisibleOnList(String projectName){
         getWait().until(ExpectedConditions.visibilityOfElementLocated(getProjectNameSpanBy(projectName)));
