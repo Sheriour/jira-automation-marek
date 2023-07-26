@@ -2,12 +2,13 @@ package steps;
 
 import io.cucumber.java.*;
 import system.DriverCoordinator;
+import system.EntityManager;
 
 public class Hooks
 {
     @After
     public void cleanup(){
-
+        EntityManager.deleteEntities();
     }
 
     @After

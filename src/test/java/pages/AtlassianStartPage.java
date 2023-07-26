@@ -14,11 +14,19 @@ public class AtlassianStartPage {
     @FindBy(how = How.CSS, using = "a[href*='selectedProjectType=software']")
     WebElement jiraSoftwareButton;
 
+    /**
+     * Checks if home button is visible on Atlassian start page
+     *
+     * @return  True if home button was visible
+     */
     public boolean isHomeButtonVisible(){
         getWait().until(ExpectedConditions.visibilityOf(homeButton));
         return true;
     }
 
+    /**
+     * Clicks the link which navigates to Jira Software within Atlassian
+     */
     public void clickJiraLink(){
         waitAndClick(jiraSoftwareButton, "Could not navigate to Jira Software!");
     }

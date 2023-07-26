@@ -2,11 +2,9 @@ package system;
 
 import models.JiraProject;
 
-import java.util.ArrayList;
-
 public class EntityManager {
 
-    static ArrayList<JiraProject> createdProjects = new ArrayList<>();
+    static JiraProject createdProject;
 
     /**
      * Register a new project to be monitored
@@ -14,14 +12,32 @@ public class EntityManager {
      * @param project   Project object to be added
      */
     public static void registerProject(JiraProject project) {
-        createdProjects.add(project);
+        createdProject = project;
     }
 
     /**
      * Delete all Jira entities stored in the Manager
      */
     public static void deleteEntities(){
-        for (JiraProject project : createdProjects)
-            JiraApi.GetInstance().sendDelete("/3/project/" + project.Id);
+        deleteProject();
+    }
+
+    /**
+     * Deletes stored project. Will retrieve project ID if only Name is available.
+     */
+    private static void deleteProject() {
+        if (createdProject.Id == null) {
+            createdProject.Id = JiraApi.GetInstance().getProjectIdByName(createdProject.Name);
+        }
+        JiraApi.GetInstance().sendDelete("/3/project/" +createdProject.Id);
+    }
+
+    /**
+     * Get the name of stored project
+     *
+     * @return Name of stored project
+     */
+    public static String getProjectName(){
+        return createdProject.Name;
     }
 }

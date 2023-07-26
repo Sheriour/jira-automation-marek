@@ -38,7 +38,20 @@ public class JiraApi {
         return reqSpec.when().delete(path);
     }
 
-    public void printGet(String path){
-       System.out.println(reqSpec.when().get(path).body().asString());
+    public String getProjectIdByName(String projectName){
+        Response res =  reqSpec.param("query", projectName).when().get("/3/project/search");
+        String projectId = res.jsonPath().getString("values[0].id");
+        if (projectId == null){
+            System.out.println(
+                    "Could not find find project id in response for project '"+projectName+"': " + res.body().asString()
+            );
+        }
+        return projectId;
     }
+
+    public void printGet(String path){
+       System.out.println(reqSpec.param("query", "ME").when().get(path).body().asString());
+    }
+
+
 }

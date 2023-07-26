@@ -17,21 +17,22 @@ public class JiraProjectsPage {
     WebElement projectPageHeader;
     @FindBy(how = How.CSS, using = "button[data-testid*='create-projects-button']")
     WebElement createProjectButton;
-    @FindBy(how = How.XPATH, using = "//*[text()='Use template']//ancestor::button")
-    WebElement useTemplateButton;
-    @FindBy(how = How.CSS, using = "")
-    WebElement selectCompanyManagedButton;
-    @FindBy(how = How.CSS, using = "button[data-testid*='button-team-managed']")
-    WebElement selectTeamManagedButton;
 
-    private By getProjectTemplateButtonBy(String projectTemplateName){
-        return By.cssSelector("button[aria-label='"+projectTemplateName+"']");
-    }
-
+    /**
+     * Gets the span element for given project on the list
+     *
+     * @param projectName   Name of the given project
+     * @return              By locator for the element
+     */
     private By getProjectNameSpanBy(String projectName){
         return By.xpath("//tbody//a/span[contains(text(), '"+projectName+"')]");
     }
 
+    /**
+     * Checks if project page header is visible
+     *
+     * @return  True if header was visible
+     */
     public boolean isProjectPageHeaderVisible(){
         try {
             getWait().until(ExpectedConditions.visibilityOf(projectPageHeader));
@@ -42,29 +43,19 @@ public class JiraProjectsPage {
         }
     }
 
+    /**
+     * Clicks the "Create Project" button to initiate project creation process
+     */
     public void createNewProject(){
         waitAndClick(createProjectButton, "Could not click the Create Project button!");
     }
 
-    public void useProjectTemplate(){
-        waitAndClick(useTemplateButton, "Could not use a project template!");
-    }
-
-    public void selectProjectTemplate(String projectTemplateName){
-        By templateBy = getProjectTemplateButtonBy(projectTemplateName);
-        waitAndClick(
-                templateBy, "Could not select a Software Development project template " + projectTemplateName
-        );
-    }
-
-    public void selectTeamManagedProjectType(){
-        waitAndClick(selectTeamManagedButton, "Could not select a Team Managed project type");
-    }
-
-    public void selectCompanyManagedProjectType(){
-        waitAndClick(selectCompanyManagedButton, "Could not select a Company Managed project type");
-    }
-
+    /**
+     * Checks if a given project is visible on the project list
+     *
+     * @param projectName   Name of the project
+     * @return              True if project was visible on the list
+     */
     public boolean isProjectVisibleOnList(String projectName){
         getWait().until(ExpectedConditions.visibilityOfElementLocated(getProjectNameSpanBy(projectName)));
         return true;

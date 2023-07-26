@@ -2,11 +2,12 @@ package steps;
 
 import io.cucumber.java.en.*;
 import lombok.extern.slf4j.Slf4j;
+import models.JiraProject;
 import org.testng.Assert;
-import pages.AtlassianLoginPage;
-import pages.AtlassianStartPage;
-import pages.JiraProjectsPage;
-import system.PageRepository;
+import pages.*;
+import system.EntityManager;
+import system.JiraApi;
+import utils.GeneralUtils;
 
 import static system.PageRepository.getPage;
 
@@ -53,8 +54,8 @@ public class JiraSteps
         iAmOnTheProjectListPage();
     }
 
-    @And("I click the Create Project button")
-    public void iClickTheCreateProjectButton()
+    @And("I click the Create Project button on Projects page")
+    public void iClickTheCreateProjectButtonOnProjectsPage()
     {
         getPage(JiraProjectsPage.class).createNewProject();
     }
@@ -62,24 +63,56 @@ public class JiraSteps
     @And("I select {string} project template")
     public void iSelectProjectTemplate(String projectTemplateName)
     {
-        getPage(JiraProjectsPage.class).selectProjectTemplate(projectTemplateName);
+        getPage(JiraProjectCreationPage.class).selectProjectTemplate(projectTemplateName);
     }
 
     @And("I use currently selected project template")
     public void iUseCurrentlySelectedProjectTemplate()
     {
-        getPage(JiraProjectsPage.class).useProjectTemplate();
+        getPage(JiraProjectCreationPage.class).useProjectTemplate();
     }
 
     @And("I select team managed project type")
     public void iSelectTeamManagedProjectType()
     {
-        getPage(JiraProjectsPage.class).selectTeamManagedProjectType();
+        getPage(JiraProjectCreationPage.class).selectTeamManagedProjectType();
     }
 
     @And("I select company managed project type")
     public void iSelectCompanyManagedProjectType()
     {
-        getPage(JiraProjectsPage.class).selectCompanyManagedProjectType();
+        getPage(JiraProjectCreationPage.class).selectCompanyManagedProjectType();
+    }
+
+    @And("I provide a randomised project name")
+    public void iProvideARandomisedProjectName() {
+        JiraProject project = new JiraProject();
+        project.Name = JiraProject.getRandomName();
+        EntityManager.registerProject(project);
+
+        getPage(JiraProjectCreationPage.class).provideProjectName(project.Name);
+    }
+
+    @And("I finish creating the project")
+    public void iFinishCreatingTheProject() {
+        getPage(JiraProjectCreationPage.class).finishCreatingProject();
+    }
+
+    @Then("I see project header contains created project name")
+    public void iSeeProjectHeaderContainsCreatedProjectName() {
+        Assert.assertTrue(
+                getPage(JiraProjectBoardPage.class).projectHeaderContainsName(EntityManager.getProjectName()),
+                "Could not see project name on the project board page!"
+        );
+    }
+
+    @And("I wait {int} seconds")
+    public void iWaitSeconds(int seconds)  {
+        GeneralUtils.waitForSeconds(seconds);
+    }
+
+    @Given("I try stuff")
+    public void iTryStuff() {
+        JiraApi.GetInstance().getProjectIdByName("Marek Automation");
     }
 }

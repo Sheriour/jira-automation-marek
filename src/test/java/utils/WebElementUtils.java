@@ -42,9 +42,16 @@ public class WebElementUtils {
                 .click();
     }
 
-    public static void waitAndFillField(WebElement element, String text){
-        getWait().until(ExpectedConditions.elementToBeClickable(element));
-        element.clear();
-        element.sendKeys(text);
+    public static void waitAndFillField(WebElement element, String text, String failMessage){
+        try {
+            getWait().until(ExpectedConditions.elementToBeClickable(element));
+            element.clear();
+            element.sendKeys(text);
+        }
+        catch (Exception e){
+            log.error(failMessage);
+            throw e;
+        }
+
     }
 }
