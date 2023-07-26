@@ -3,6 +3,7 @@ package steps;
 import io.cucumber.java.*;
 import system.DriverCoordinator;
 import system.EntityManager;
+import system.PageRepository;
 
 public class Hooks
 {
@@ -12,8 +13,9 @@ public class Hooks
     }
 
     @After
-    public void quitDriver(){
+    public void teardown(){
         if (DriverCoordinator.hasDriver())
-            DriverCoordinator.getWebDriver().quit();
+            DriverCoordinator.quitWebDriver();
+        PageRepository.deleteAllPages();
     }
 }

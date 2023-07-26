@@ -24,6 +24,11 @@ public class DriverCoordinator
         return driver;
     }
 
+    public static void quitWebDriver(){
+        getWebDriver().quit();
+        webDriver.remove();
+    }
+
     public static WebDriverWait getWait(){
         return new WebDriverWait(getWebDriver(), Duration.ofSeconds(10));
     }

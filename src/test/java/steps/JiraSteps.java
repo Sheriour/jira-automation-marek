@@ -17,7 +17,6 @@ public class JiraSteps
     @Given("I login to Atlassian")
     public void iLoginToAtlassian()
     {
-
         AtlassianLoginPage atlassianLoginPage = getPage(AtlassianLoginPage.class);
         atlassianLoginPage.visit();
         atlassianLoginPage.enterUsername("sheriour@gmail.com");

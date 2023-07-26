@@ -1,8 +1,6 @@
 package system;
 
 import lombok.extern.slf4j.Slf4j;
-import org.testng.Assert;
-import pages.AtlassianLoginPage;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -44,5 +42,12 @@ public class PageRepository {
         catch (Exception e){
             throw new AssertionError("Could not create page " + pageClass.getName());
         }
+    }
+
+    /**
+     * Removes all page references
+     */
+    public static void deleteAllPages(){
+        pages = new ArrayList<>();
     }
 }

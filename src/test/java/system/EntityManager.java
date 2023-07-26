@@ -26,10 +26,12 @@ public class EntityManager {
      * Deletes stored project. Will retrieve project ID if only Name is available.
      */
     private static void deleteProject() {
-        if (createdProject.Id == null) {
-            createdProject.Id = JiraApi.GetInstance().getProjectIdByName(createdProject.Name);
+        if (createdProject != null){
+            if (createdProject.Id == null) {
+                createdProject.Id = JiraApi.GetInstance().getProjectIdByName(createdProject.Name);
+            }
+            JiraApi.GetInstance().sendDelete("/3/project/" +createdProject.Id);
         }
-        JiraApi.GetInstance().sendDelete("/3/project/" +createdProject.Id);
     }
 
     /**
