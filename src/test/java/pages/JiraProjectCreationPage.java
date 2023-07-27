@@ -16,7 +16,7 @@ public class JiraProjectCreationPage {
 
     @FindBy(how = How.XPATH, using = "//*[text()='Use template']//ancestor::button")
     WebElement useTemplateButton;
-    @FindBy(how = How.CSS, using = "")
+    @FindBy(how = How.CSS, using = "button[data-testid*='button-company-managed']")
     WebElement selectCompanyManagedButton;
     @FindBy(how = How.CSS, using = "button[data-testid*='button-team-managed']")
     WebElement selectTeamManagedButton;
@@ -26,6 +26,11 @@ public class JiraProjectCreationPage {
     WebElement createProjectFinishButton;
     @FindBy(how = How.CSS, using = " [id*='key-field.input']")
     WebElement projectKeyInput;
+    @FindBy(how = How.XPATH, using = "//span[@aria-label='close']//ancestor::button")
+    WebElement abandonTemplateButton;
+    @FindBy(how = How.XPATH, using = "//span[text()='Change template']//parent::button")
+    WebElement changeTemplateButton;
+
 
     /**
      * Returns a By for a given project template on the list
@@ -90,6 +95,26 @@ public class JiraProjectCreationPage {
         waitAndClick(
                 createProjectFinishButton,
                 "Could not click Create Project button to finalise project creation!"
+        );
+    }
+
+    /**
+     * Presses the X button visible while confirming use of a template
+     */
+    public void abandonTemplate() {
+        waitAndClick(
+                abandonTemplateButton,
+                "Could not click the X button to abandon previewed template!"
+        );
+    }
+
+    /**
+     * Presses the Change Template button visible while selecting project type or while providing project name
+     */
+    public void changeTemplate() {
+        waitAndClick(
+                changeTemplateButton,
+                "Could not click the Change Template button while choosing project type!"
         );
     }
 }

@@ -97,11 +97,54 @@ public class JiraSteps
         getPage(JiraProjectCreationPage.class).finishCreatingProject();
     }
 
+    @And("I abandon previewed project template")
+    public void iAbandonPreviewedProjectTemplate() {
+        getPage(JiraProjectCreationPage.class).abandonTemplate();
+    }
+
+    @And("I change project template")
+    public void iChangeProjectTemplate() {
+        getPage(JiraProjectCreationPage.class).changeTemplate();
+    }
+
+
     @Then("I see project header contains created project name")
     public void iSeeProjectHeaderContainsCreatedProjectName() {
         Assert.assertTrue(
                 getPage(JiraProjectBoardPage.class).projectHeaderContainsName(EntityManager.getProjectName()),
                 "Could not see project name on the project board page!"
+        );
+    }
+
+    @Then("I see project type is {string}")
+    public void iSeeProjectTypeIs(String projectType) {
+        Assert.assertTrue(
+                getPage(JiraProjectBoardPage.class).displayedProjectTypeIs(projectType),
+                "Could not see project type as "+projectType+" on the project board page!"
+        );
+    }
+
+    @Then("I see project board belongs to a Scrum project")
+    public void iSeeProjectBoardBelongsToAScrumProject() {
+        Assert.assertTrue(
+                getPage(JiraProjectBoardPage.class).isProjectBoardForScrum(),
+                "Could not verify the project as Scrum on the project board page!"
+        );
+    }
+
+    @Then("I see project board belongs to a Kanban project")
+    public void iSeeProjectBoardBelongsToAKanbanProject() {
+        Assert.assertTrue(
+                getPage(JiraProjectBoardPage.class).isProjectBoardForKanban(),
+                "Could not verify the project as Kanban on the project board page!"
+        );
+    }
+
+    @Then("I see project board belongs to a Bug tracking project")
+    public void iSeeProjectBoardBelongsToABugTrackingProject() {
+        Assert.assertTrue(
+                getPage(JiraProjectBoardPage.class).isProjectBoardForBugTracking(),
+                "Could not verify the project as Bug tracking on the project board page!"
         );
     }
 
