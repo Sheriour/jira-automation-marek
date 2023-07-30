@@ -1,5 +1,6 @@
 package steps;
 
+import io.cucumber.java.ParameterType;
 import io.cucumber.java.en.*;
 import lombok.extern.slf4j.Slf4j;
 import models.JiraProject;
@@ -14,6 +15,16 @@ import static system.PageRepository.getPage;
 @Slf4j
 public class JiraSteps
 {
+    @ParameterType("Kanban|Scrum|Bug tracking")
+    public String projectTemplate(String input) {
+        return input;
+    }
+
+    @ParameterType("team-managed|company-managed")
+    public String projectManagement(String input) {
+        return input;
+    }
+
     @Given("I login to Atlassian")
     public void iLoginToAtlassian()
     {
@@ -51,6 +62,41 @@ public class JiraSteps
         iLoginToAtlassian();
         iNavigateToJiraSoftware();
         iAmOnTheProjectListPage();
+    }
+
+    @And("I create a {projectTemplate} {projectManagement} project")
+    public void iCreateAProject(String projectTemplateName, String projectManagement)
+    {
+        getPage(JiraProjectsPage.class).createNewProject();
+        JiraProjectCreationPage projectCreationPage = getPage(JiraProjectCreationPage.class);
+        projectCreationPage.selectProjectTemplate(projectTemplateName);
+        projectCreationPage.useProjectTemplate();
+
+        if (projectManagement == "team-managed")
+            projectCreationPage.selectTeamManagedProjectType();
+        else
+            projectCreationPage.selectCompanyManagedProjectType();
+
+        JiraProject project = new JiraProject();
+        project.Name = JiraProject.getRandomName();
+        EntityManager.registerProject(project);
+
+        projectCreationPage.provideProjectName(project.Name);
+        projectCreationPage.finishCreatingProject();
+    }
+
+    @And("I create a Bug Tracking project")
+    public void iCreateABugTrackingProject()
+    {
+        getPage(JiraProjectsPage.class).createNewProject();
+        JiraProjectCreationPage projectCreationPage = getPage(JiraProjectCreationPage.class);
+
+        JiraProject project = new JiraProject();
+        project.Name = JiraProject.getRandomName();
+        EntityManager.registerProject(project);
+
+        projectCreationPage.provideProjectName(project.Name);
+        projectCreationPage.finishCreatingProject();
     }
 
     @And("I click the Create Project button on Projects page")
