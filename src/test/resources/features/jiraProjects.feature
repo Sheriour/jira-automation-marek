@@ -14,7 +14,6 @@ Feature: Jira Projects
     And I see project type is "team-managed"
     And I see project board belongs to a Kanban project
 
-  @Run
   Scenario: Create a company managed scrum project
     When I start creating a new Project
     And I create a Scrum company-managed project
