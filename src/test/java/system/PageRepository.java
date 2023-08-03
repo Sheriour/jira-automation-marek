@@ -40,6 +40,7 @@ public class PageRepository {
             }
         }
         catch (Exception e){
+            System.out.println("Exception encountered: " + e.getMessage());
             throw new AssertionError("Could not create page " + pageClass.getName());
         }
     }
