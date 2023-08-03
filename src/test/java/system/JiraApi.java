@@ -13,33 +13,33 @@ public class JiraApi {
         return instance;
     }
 
-    RequestSpecification reqSpec;
+    String username;
+    String secret;
 
     public JiraApi(){
-        String username = "sheriour@gmail.com";
-        String secret = "ATATT3xFfGF00B8IKKUHbfg60cctSK84Cq2n7rbfFhoCAhDRCah0v93SwvCyPOK5Ij69kYugWUznmrDJowGqVcjr_dd" +
-                "MEQMtByHajZztCQMxaNHnQ4Ntj_k_bANdKQNe6nTbRzqkH2sjS-FHkKN4sdQKbvCQr-nJ3sR-aKWzWNryYj7wRXAZ-Ys=8E39C895";
+        username = PropertyManager.GetInstance().getProperty("api.username");
+        secret = PropertyManager.GetInstance().getProperty("api.secret");
 
         RestAssured.baseURI = "https://marek-dziekan-automation.atlassian.net/rest/api";
+    }
 
-        reqSpec = RestAssured.given()
+    private RequestSpecification getReqSpec() {
+        return RestAssured.given()
                 .auth()
                 .preemptive()
                 .basic(username, secret);
     }
 
-
     public Response sendGet(String path){
-        return reqSpec.when().get(path);
+        return getReqSpec().when().get(path);
     }
 
-    //        JiraApi.GetInstance().sendDelete("/3/project/10002");
     public Response sendDelete(String path){
-        return reqSpec.when().delete(path);
+        return getReqSpec().when().delete(path);
     }
 
     public String getProjectIdByName(String projectName){
-        Response res =  reqSpec.param("query", projectName).when().get("/3/project/search");
+        Response res =  getReqSpec().param("query", projectName).when().get("/3/project/search");
         String projectId = res.jsonPath().getString("values[0].id");
         if (projectId == null){
             System.out.println(
@@ -50,7 +50,7 @@ public class JiraApi {
     }
 
     public void printGet(String path){
-       System.out.println(reqSpec.param("query", "ME").when().get(path).body().asString());
+       System.out.println(getReqSpec().param("query", "ME").when().get(path).body().asString());
     }
 
 

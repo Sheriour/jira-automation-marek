@@ -20,6 +20,7 @@ public class DriverCoordinator
         if (driver == null) {
             driver = new ChromeDriver();
             webDriver.set(driver);
+            driver.manage().window().maximize();
         }
         return driver;
     }

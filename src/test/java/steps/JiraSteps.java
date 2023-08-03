@@ -8,6 +8,7 @@ import org.testng.Assert;
 import pages.*;
 import system.EntityManager;
 import system.JiraApi;
+import system.PropertyManager;
 import utils.GeneralUtils;
 
 import static system.PageRepository.getPage;
@@ -67,12 +68,11 @@ public class JiraSteps
     @And("I create a {projectTemplate} {projectManagement} project")
     public void iCreateAProject(String projectTemplateName, String projectManagement)
     {
-        getPage(JiraProjectsPage.class).createNewProject();
         JiraProjectCreationPage projectCreationPage = getPage(JiraProjectCreationPage.class);
         projectCreationPage.selectProjectTemplate(projectTemplateName);
         projectCreationPage.useProjectTemplate();
 
-        if (projectManagement == "team-managed")
+        if (projectManagement.equals("team-managed"))
             projectCreationPage.selectTeamManagedProjectType();
         else
             projectCreationPage.selectCompanyManagedProjectType();
@@ -88,8 +88,9 @@ public class JiraSteps
     @And("I create a Bug Tracking project")
     public void iCreateABugTrackingProject()
     {
-        getPage(JiraProjectsPage.class).createNewProject();
         JiraProjectCreationPage projectCreationPage = getPage(JiraProjectCreationPage.class);
+        projectCreationPage.selectProjectTemplate("Bug tracking");
+        projectCreationPage.useProjectTemplate();
 
         JiraProject project = new JiraProject();
         project.Name = JiraProject.getRandomName();
@@ -99,8 +100,8 @@ public class JiraSteps
         projectCreationPage.finishCreatingProject();
     }
 
-    @And("I click the Create Project button on Projects page")
-    public void iClickTheCreateProjectButtonOnProjectsPage()
+    @And("I start creating a new Project")
+    public void iStartCreatingANewProject()
     {
         getPage(JiraProjectsPage.class).createNewProject();
     }
@@ -202,5 +203,10 @@ public class JiraSteps
     @Given("I try stuff")
     public void iTryStuff() {
         JiraApi.GetInstance().getProjectIdByName("Marek Automation");
+    }
+
+    @When("I test stuff")
+    public void iTestStuff() {
+
     }
 }

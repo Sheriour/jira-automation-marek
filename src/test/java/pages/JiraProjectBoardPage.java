@@ -12,10 +12,10 @@ public class JiraProjectBoardPage {
 
     @FindBy (how = How.CSS, using = "h2[data-item-title='true']")
     WebElement projectHeader;
-    @FindBy (how = How.XPATH, using = "//span[text()='Go to Backlog']//parent::a")
-    WebElement goToBacklogScrumButton;
-    @FindBy (how = How.CSS, using = "[title='Kanban board']")
-    WebElement kanbanBoardHeader;
+    @FindBy (how = How.XPATH, using = "//h3[text()='There are no active sprints']")
+    WebElement noActiveSprintsScrum;
+    @FindBy (how = How.XPATH, using = "//div[text()='Create issue']")
+    WebElement kanbanCreateIssue;
     @FindBy (how = How.XPATH, using = "//h1/span[text()='Issues']")
     WebElement bugTrackingHeader;
 
@@ -69,7 +69,7 @@ public class JiraProjectBoardPage {
      */
     public boolean isProjectBoardForKanban(){
         try {
-            getWait().until(ExpectedConditions.visibilityOf(kanbanBoardHeader));
+            getWait().until(ExpectedConditions.visibilityOf(kanbanCreateIssue));
             return true;
         }
         catch (Exception e){
@@ -84,7 +84,7 @@ public class JiraProjectBoardPage {
      */
     public boolean isProjectBoardForScrum(){
         try {
-            getWait().until(ExpectedConditions.visibilityOf(goToBacklogScrumButton));
+            getWait().until(ExpectedConditions.visibilityOf(noActiveSprintsScrum));
             return true;
         }
         catch (Exception e){

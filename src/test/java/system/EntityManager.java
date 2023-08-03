@@ -1,6 +1,7 @@
 package system;
 
 import models.JiraProject;
+import utils.GeneralUtils;
 
 public class EntityManager {
 
@@ -27,8 +28,11 @@ public class EntityManager {
      */
     private static void deleteProject() {
         if (createdProject != null){
-            if (createdProject.Id == null) {
+            int iterator = 0, maxRetries = 3;
+            while (createdProject.Id == null && iterator < maxRetries){
                 createdProject.Id = JiraApi.GetInstance().getProjectIdByName(createdProject.Name);
+                iterator++;
+                GeneralUtils.waitForSeconds(1);
             }
             JiraApi.GetInstance().sendDelete("/3/project/" +createdProject.Id);
         }

@@ -22,7 +22,7 @@ public class JiraProjectCreationPage {
     WebElement selectTeamManagedButton;
     @FindBy(how = How.ID, using = "project-create.create-form.name-field.input")
     WebElement newProjectNameInput;
-    @FindBy(how = How.CSS, using = "[data-test-id*='submit-button'] > button")
+    @FindBy(how = How.CSS, using = "[data-testid*='submit-button'] > button")
     WebElement createProjectFinishButton;
     @FindBy(how = How.CSS, using = " [id*='key-field.input']")
     WebElement projectKeyInput;
