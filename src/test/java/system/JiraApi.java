@@ -4,6 +4,8 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+import java.util.Map;
+
 public class JiraApi {
 
     static JiraApi instance;
@@ -17,8 +19,8 @@ public class JiraApi {
     String secret;
 
     public JiraApi(){
-        username = PropertyManager.GetInstance().getProperty("api.username");
-        secret = PropertyManager.GetInstance().getProperty("api.secret");
+        username = System.getenv("jira_api_username");
+        secret = System.getenv("jira_api_secret");
 
         RestAssured.baseURI = "https://marek-dziekan-automation.atlassian.net/rest/api";
     }
