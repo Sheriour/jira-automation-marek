@@ -17,6 +17,12 @@ jobs:
 
     runs-on: windows-latest
 
+    services:
+      selenium:
+        image: selenium/standalone-chrome:latest
+        ports:
+          - 4444:4444
+
     steps:
     - uses: actions/checkout@v3
     - uses: browser-actions/setup-chrome@v1
