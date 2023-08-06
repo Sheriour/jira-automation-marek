@@ -19,7 +19,7 @@ public class DriverCoordinator
         return webDriver.get() != null;
     }
 
-    public static String remote_url_chrome = "http://selenium:4444/wd/hub";
+    public static String remote_url_chrome = "http://localhost:4444/wd/hub";
 
     public static WebDriver getWebDriver(){
         WebDriver driver = webDriver.get();
