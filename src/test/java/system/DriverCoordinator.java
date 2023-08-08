@@ -27,9 +27,10 @@ public class DriverCoordinator
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
-            options.addArguments("--headless");
+            //options.addArguments("--headless");
             //driver = new ChromeDriver(options);
             try {
+                //MAKE THIS OPTIONAL VS ORDINARY DRIVER RAN ON LOCAL
                 driver = new RemoteWebDriver(new URL(remote_url_chrome), options);
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
