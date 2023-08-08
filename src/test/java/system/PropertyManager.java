@@ -7,14 +7,14 @@ import java.util.Properties;
 
 public class PropertyManager {
 
-    static  PropertyManager instance;
+    private static PropertyManager instance;
 
     public static PropertyManager GetInstance(){
         if (instance == null) instance = new  PropertyManager();
         return instance;
     }
 
-    Properties properties;
+    private Properties properties;
 
     private PropertyManager(){
         String path = System.getProperty("user.dir") + "/src/test/resources/jiratest.properties";

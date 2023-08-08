@@ -5,7 +5,7 @@ import utils.GeneralUtils;
 
 public class EntityManager {
 
-    static JiraProject createdProject;
+    static ThreadLocal<JiraProject> createdProject = new ThreadLocal<>();
 
     /**
      * Register a new project to be monitored
@@ -13,7 +13,7 @@ public class EntityManager {
      * @param project   Project object to be added
      */
     public static void registerProject(JiraProject project) {
-        createdProject = project;
+        createdProject.set(project);
     }
 
     /**
@@ -27,14 +27,15 @@ public class EntityManager {
      * Deletes stored project. Will retrieve project ID if only Name is available.
      */
     private static void deleteProject() {
-        if (createdProject != null){
+        JiraProject project = createdProject.get();
+        if (project != null){
             int iterator = 0, maxRetries = 3;
-            while (createdProject.Id == null && iterator < maxRetries){
-                createdProject.Id = JiraApi.GetInstance().getProjectIdByName(createdProject.Name);
+            while (project.Id == null && iterator < maxRetries){
+                project.Id = JiraApi.GetInstance().getProjectIdByName(project.Name);
                 iterator++;
                 GeneralUtils.waitForSeconds(1);
             }
-            JiraApi.GetInstance().sendDelete("/3/project/" +createdProject.Id);
+            JiraApi.GetInstance().sendDelete("/3/project/" +project.Id);
         }
     }
 
@@ -44,6 +45,6 @@ public class EntityManager {
      * @return Name of stored project
      */
     public static String getProjectName(){
-        return createdProject.Name;
+        return createdProject.get().Name;
     }
 }

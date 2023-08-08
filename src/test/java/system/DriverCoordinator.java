@@ -29,7 +29,7 @@ public class DriverCoordinator
             options.addArguments("--disable-dev-shm-usage");
             //options.addArguments("--headless");
 
-            String runmode = PropertyManager.instance.getProperty("runmode");
+            String runmode = PropertyManager.GetInstance().getProperty("runmode");
             try {
                 if (runmode.equalsIgnoreCase("local")){
                     driver = new ChromeDriver(options);

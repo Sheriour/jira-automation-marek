@@ -10,7 +10,21 @@ import static org.openqa.selenium.support.PageFactory.initElements;
 @Slf4j
 public class PageRepository {
 
-    private static ArrayList<Object> pages = new ArrayList<>();
+    private static ThreadLocal<ArrayList<Object>> pagesThread = new ThreadLocal<>();
+
+    /**
+     * Get pages list for current thread
+     *
+     * @return  List of pages for current thread
+     */
+    private static ArrayList<Object> getPages(){
+        ArrayList<Object> pages = pagesThread.get();
+        if (pages == null) {
+            pages = new ArrayList<>();
+            pagesThread.set(pages);
+        }
+        return pages;
+    }
 
     /**
      * Create or retrieve (if one already exists) a page object from the repository.
@@ -21,6 +35,8 @@ public class PageRepository {
      * @param <T>       Class of the page
      */
     public static <T> T getPage(Class<T> pageClass){
+        ArrayList<Object> pages = getPages();
+
         try {
             //Find the page object of specific class
             Optional<Object> pageOptional = pages
@@ -49,6 +65,7 @@ public class PageRepository {
      * Removes all page references
      */
     public static void deleteAllPages(){
-        pages = new ArrayList<>();
+        pagesThread.remove();
+        pagesThread.set(new ArrayList<>());
     }
 }
