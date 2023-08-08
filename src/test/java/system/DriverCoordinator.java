@@ -28,10 +28,14 @@ public class DriverCoordinator
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
             //options.addArguments("--headless");
-            //driver = new ChromeDriver(options);
+
+            String runmode = PropertyManager.instance.getProperty("runmode");
             try {
-                //MAKE THIS OPTIONAL VS ORDINARY DRIVER RAN ON LOCAL
-                driver = new RemoteWebDriver(new URL(remote_url_chrome), options);
+                if (runmode.equalsIgnoreCase("local")){
+                    driver = new ChromeDriver(options);
+                } else if  (runmode.equalsIgnoreCase("remote")){
+                    driver = new RemoteWebDriver(new URL(remote_url_chrome), options);
+                }
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }
