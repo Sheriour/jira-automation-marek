@@ -14,7 +14,6 @@ Feature: Jira Projects
     And I see project type is "team-managed"
     And I see project board belongs to a Kanban project
 
-  @Run
   Scenario: Create a company managed scrum project
     When I start creating a new Project
     And I create a Scrum company-managed project
@@ -22,14 +21,12 @@ Feature: Jira Projects
     And I see project type is "company-managed"
     And I see project board belongs to a Scrum project
 
-  @Run
   Scenario: Create a Bug tracking Project
     When I start creating a new Project
     And I create a Bug Tracking project
     Then I see project header contains created project name
     And I see project board belongs to a Bug tracking project
 
-  @Run
   Scenario: Switch project template after initial preview
     When I start creating a new Project
     And I select "Kanban" project template
@@ -37,7 +34,6 @@ Feature: Jira Projects
     And I create a Bug Tracking project
     Then I see project header contains created project name
 
-  @Run
   Scenario: Switch project template while previewing project type
     When I start creating a new Project
     And I select "Kanban" project template
@@ -46,7 +42,6 @@ Feature: Jira Projects
     And I create a Bug Tracking project
     Then I see project header contains created project name
 
-  @Run
   Scenario: Switch project template while providing project
     When I start creating a new Project
     And I select "Kanban" project template
