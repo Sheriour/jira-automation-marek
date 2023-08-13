@@ -44,4 +44,4 @@ jobs:
           aws_key_id: ${{ secrets.aws_key_id }}
           aws_secret_access_key: ${{ secrets.aws_secret_key }}
           aws_bucket: cucumber-selenium-reports
-          source_dir: target/reports/cucumber.html
+          source_dir: target/reports
