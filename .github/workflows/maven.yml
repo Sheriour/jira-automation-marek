@@ -38,10 +38,6 @@ jobs:
       env:
         jira_api_username: ${{ secrets.jira_api_username }}
         jira_api_secret: ${{ secrets.jira_api_secret}}
-    - uses: shallwefootball/s3-upload-action@master
-      name: Upload S3
-      with:
-          aws_key_id: ${{ secrets.aws_key_id }}
-          aws_secret_access_key: ${{ secrets.aws_secret_key }}
-          aws_bucket: cucumber-selenium-reports
-          source_dir: target/reports
+    - name: upload
+      run: AWS_ACCESS_KEY_ID=${{secrets.aws_key_id}} AWS_SECRET_ACCESS_KEY=${{secrets.aws_secret_key}} aws s3 cp ./cucumber.html s3://cucumber-selenium-reports/report.html
+      working-directory: target/reports
