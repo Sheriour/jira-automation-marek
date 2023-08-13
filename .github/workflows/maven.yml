@@ -38,8 +38,14 @@ jobs:
       env:
         jira_api_username: ${{ secrets.jira_api_username }}
         jira_api_secret: ${{ secrets.jira_api_secret}}
+    - name: Get Time
+      id: time
+      uses: nanzm/get-time-action@master
+      with:
+       timeZone: UTC
+       format: 'YYYY-MM-DD-HH-mm'
     - name: upload
-      run: AWS_ACCESS_KEY_ID=${{secrets.aws_key_id}} AWS_SECRET_ACCESS_KEY=${{secrets.aws_secret_key}} aws s3 cp ./cucumber.html s3://cucumber-selenium-reports/report.html
+      run: AWS_ACCESS_KEY_ID=${{secrets.aws_key_id}} AWS_SECRET_ACCESS_KEY=${{secrets.aws_secret_key}} aws s3 cp ./cucumber.html s3://cucumber-selenium-reports/report-${{ steps.time.outputs.time }}.html
       working-directory: target/reports
       env:
        AWS_DEFAULT_REGION: eu-north-1
