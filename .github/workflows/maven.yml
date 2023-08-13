@@ -19,11 +19,18 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      selenium:
-        image: selenium/standalone-chrome:latest
+      hub:
+        image: selenium/hub:latest
         ports:
           - 4444:4444
-
+        env:
+         GRID_BROWSER_TIMEOUT: 300
+         GRID_TIMEOUT: 300
+      chrome:
+        image: selenium/node-chrome:latest
+        env:
+          HUB_HOST: hub
+        
     steps:
     - uses: actions/checkout@v3
     #- uses: browser-actions/setup-chrome@v1
