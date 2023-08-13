@@ -38,7 +38,10 @@ jobs:
       env:
         jira_api_username: ${{ secrets.jira_api_username }}
         jira_api_secret: ${{ secrets.jira_api_secret}}
-    - uses: actions/upload-artifact@v3
+    - uses: shallwefootball/s3-upload-action@master
+      name: Upload S3
       with:
-        name: report
-        path: target/reports/cucumber.html
+          aws_key_id: ${{ secrets.aws_key_id }}
+          aws_secret_access_key: ${{ secrets.aws_secret_key }}
+          aws_bucket: cucumber-selenium-reports
+          source_dir: target/reports/cucumber.html
