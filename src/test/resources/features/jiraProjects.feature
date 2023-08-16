@@ -46,7 +46,6 @@ Feature: Jira Projects
     And I create a Bug Tracking project
     Then I see project header contains created project name
 
-  @Run
   Scenario: Switch project template while providing project
     When I start creating a new Project
     And I select "Kanban" project template
