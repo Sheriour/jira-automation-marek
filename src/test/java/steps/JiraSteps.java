@@ -83,7 +83,8 @@ public class JiraSteps
         projectCreationPage.provideProjectName(project.Name);
         projectCreationPage.finishCreatingProject();
 
-        projectCreationPage.skipIntegration();
+        //This was displaying for a while in the org, but no longer seems to pop up
+        //projectCreationPage.skipIntegration();
     }
 
     @And("I create a Bug Tracking project")
