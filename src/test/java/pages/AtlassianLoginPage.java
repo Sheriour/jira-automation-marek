@@ -12,6 +12,8 @@ import static utils.WebElementUtils.waitAndFillField;
 public class AtlassianLoginPage {
     @FindBy(how = How.ID, using = "username")
     WebElement usernameInput;
+    @FindBy(how = How.ID, using = "password")
+    WebElement passwordInput;
     @FindBy(how = How.ID, using = "login-submit")
     WebElement submit; //Username/Password are both handled by the same button
 
@@ -38,7 +40,23 @@ public class AtlassianLoginPage {
      * @param password  Password of the user
      */
     public void enterPassword(String password){
-        waitAndFillField(By.id("password"), password, "Could not fill out password!");
+        boolean failed;
+        try{
+            waitAndFillField(passwordInput, password, "Could not fill out password!");
+        } catch (Exception e){
+            failed = true;
+            System.out.println("Failed to enter password!");
+        }
+
+        try{
+            WebElement ele = getWebDriver().findElement(By.id("password"));
+            System.out.println("Found by id though!");
+            System.out.println("Is displayed: " + ele.isDisplayed());
+            System.out.println("Is enabled: " + ele.isEnabled());
+        } catch (Exception e){
+            System.out.println("Failed during debug!");
+        }
+
         waitAndClick(submit);
     }
 }

@@ -44,22 +44,11 @@ public class WebElementUtils {
 
     public static void waitAndFillField(WebElement element, String text, String failMessage){
         try {
-            getWait().until(ExpectedConditions.elementToBeClickable(element));
+            getWait().until(ExpectedConditions.visibilityOf(element));
             element.clear();
             element.sendKeys(text);
         }
         catch (Exception e){
-            log.error(failMessage);
-            throw e;
-        }
-    }
-
-    public static void waitAndFillField(By by, String text, String failMessage) {
-        try {
-            WebElement element = getWait().until(ExpectedConditions.elementToBeClickable(by));
-            element.clear();
-            element.sendKeys(text);
-        } catch (Exception e) {
             log.error(failMessage);
             throw e;
         }
