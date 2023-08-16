@@ -52,6 +52,16 @@ public class WebElementUtils {
             log.error(failMessage);
             throw e;
         }
+    }
 
+    public static void waitAndFillField(By by, String text, String failMessage) {
+        try {
+            WebElement element = getWait().until(ExpectedConditions.elementToBeClickable(by));
+            element.clear();
+            element.sendKeys(text);
+        } catch (Exception e) {
+            log.error(failMessage);
+            throw e;
+        }
     }
 }

@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -11,8 +12,6 @@ import static utils.WebElementUtils.waitAndFillField;
 public class AtlassianLoginPage {
     @FindBy(how = How.ID, using = "username")
     WebElement usernameInput;
-    @FindBy(how = How.ID, using = "password")
-    WebElement passwordInput;
     @FindBy(how = How.ID, using = "login-submit")
     WebElement submit; //Username/Password are both handled by the same button
 
@@ -39,7 +38,7 @@ public class AtlassianLoginPage {
      * @param password  Password of the user
      */
     public void enterPassword(String password){
-        waitAndFillField(passwordInput, password, "Could not fill out password!");
+        waitAndFillField(By.id("password"), password, "Could not fill out password!");
         waitAndClick(submit);
     }
 }
