@@ -1,6 +1,5 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -41,12 +40,7 @@ public class AtlassianLoginPage {
      * @param password  Password of the user
      */
     public void enterPassword(String password){
-        try {
-            waitAndFillField(passwordInput, password, "Could not fill out password!");
-        } catch (TimeoutException e) {
-            System.out.println("Failed to insert password, retrying.");
-            waitAndFillField(passwordInput, password, "Could not fill out password!");
-        }
+        waitAndFillField(passwordInput, password, "Could not fill out password!");
         waitAndClick(submit);
     }
 }
