@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -40,23 +41,12 @@ public class AtlassianLoginPage {
      * @param password  Password of the user
      */
     public void enterPassword(String password){
-        boolean failed;
-        try{
+        try {
             waitAndFillField(passwordInput, password, "Could not fill out password!");
-        } catch (Exception e){
-            failed = true;
-            System.out.println("Failed to enter password!");
+        } catch (TimeoutException e) {
+            System.out.println("Failed to insert password, retrying.");
+            waitAndFillField(passwordInput, password, "Could not fill out password!");
         }
-
-        try{
-            WebElement ele = getWebDriver().findElement(By.id("password"));
-            System.out.println("Found by id though!");
-            System.out.println("Is displayed: " + ele.isDisplayed());
-            System.out.println("Is enabled: " + ele.isEnabled());
-        } catch (Exception e){
-            System.out.println("Failed during debug!");
-        }
-
         waitAndClick(submit);
     }
 }
