@@ -36,6 +36,16 @@ jobs:
           SE_EVENT_BUS_PUBLISH_PORT: 4442
           SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
           SE_NODE_MAX_SESSIONS: 1
+      chrome2:
+        image: selenium/node-chrome:latest
+        ports:
+          - 5556:5556
+        env:
+          HUB_HOST: hub
+          SE_EVENT_BUS_HOST: hub
+          SE_EVENT_BUS_PUBLISH_PORT: 4442
+          SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+          SE_NODE_MAX_SESSIONS: 1
         
     steps:
     - uses: actions/checkout@v3
