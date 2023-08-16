@@ -30,7 +30,8 @@ public class JiraProjectCreationPage {
     WebElement abandonTemplateButton;
     @FindBy(how = How.XPATH, using = "//span[text()='Change template']//parent::button")
     WebElement changeTemplateButton;
-
+    @FindBy(how = How.XPATH, using = "//span[text()='Skip']//parent::button")
+    WebElement skipIntegrationButton;
 
     /**
      * Returns a By for a given project template on the list
@@ -115,6 +116,16 @@ public class JiraProjectCreationPage {
         waitAndClick(
                 changeTemplateButton,
                 "Could not click the Change Template button while choosing project type!"
+        );
+    }
+
+    /**
+     * Presses the Skip button visible while selecting integration with other Atlassian products
+     */
+    public void skipIntegration() {
+        waitAndClick(
+                skipIntegrationButton,
+                "Could not click the Skip button to skip Atlassian product integration for a project!"
         );
     }
 }

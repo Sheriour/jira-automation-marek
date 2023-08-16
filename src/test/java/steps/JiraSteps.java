@@ -83,6 +83,8 @@ public class JiraSteps
 
         projectCreationPage.provideProjectName(project.Name);
         projectCreationPage.finishCreatingProject();
+
+        projectCreationPage.skipIntegration();
     }
 
     @And("I create a Bug Tracking project")
