@@ -29,10 +29,13 @@ public class JiraSteps
     @Given("I login to Atlassian")
     public void iLoginToAtlassian()
     {
+        String username = System.getenv("jira_api_username");
+        String password = System.getenv("jira_user_password");
+
         AtlassianLoginPage atlassianLoginPage = getPage(AtlassianLoginPage.class);
         atlassianLoginPage.visit();
-        atlassianLoginPage.enterUsername("sheriour@gmail.com");
-        atlassianLoginPage.enterPassword("c*C@94a7DIMl");
+        atlassianLoginPage.enterUsername(username);
+        atlassianLoginPage.enterPassword(password);
     }
 
     @Then("I verify that user has logged in")

@@ -56,7 +56,9 @@ public class PageRepository {
             }
         }
         catch (Exception e){
-            System.out.println("Exception encountered: " + e.getMessage());
+            System.out.println("Exception encountered when creating a Page Object. If running tests locally without " +
+                    "a running Selenium Grid, switch to runmode=local in jiratest.properties file");
+            System.out.println(e.getMessage());
             throw new AssertionError("Could not create page " + pageClass.getName());
         }
     }
