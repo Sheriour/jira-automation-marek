@@ -71,6 +71,7 @@ jobs:
       env:
         jira_api_username: ${{ secrets.jira_api_username }}
         jira_api_secret: ${{ secrets.jira_api_secret}}
+        jira_user_secret: ${{ secrets.jira_user_password}}
     - name: Get Time
       if: ${{ always() }}
       id: time
