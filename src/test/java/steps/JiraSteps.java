@@ -29,8 +29,8 @@ public class JiraSteps
     @Given("I login to Atlassian")
     public void iLoginToAtlassian()
     {
-        String username = System.getenv("jira_api_username");
-        String password = System.getenv("jira_user_password");
+        String username = PropertyManager.GetInstance().getProperty("jira_api_username");;
+        String password = PropertyManager.GetInstance().getProperty("jira_user_password");
 
         AtlassianLoginPage atlassianLoginPage = getPage(AtlassianLoginPage.class);
         atlassianLoginPage.visit();
