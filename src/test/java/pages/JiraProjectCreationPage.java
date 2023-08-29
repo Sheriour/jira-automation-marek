@@ -20,11 +20,11 @@ public class JiraProjectCreationPage {
     WebElement selectCompanyManagedButton;
     @FindBy(how = How.CSS, using = "button[data-testid*='button-team-managed']")
     WebElement selectTeamManagedButton;
-    @FindBy(how = How.ID, using = "project-create.create-form.name-field.input")
+    @FindBy(how = How.NAME, using = "project-name")
     WebElement newProjectNameInput;
     @FindBy(how = How.CSS, using = "[data-testid*='submit-button'] > button")
     WebElement createProjectFinishButton;
-    @FindBy(how = How.CSS, using = " [id*='key-field.input']")
+    @FindBy(how = How.NAME, using = "key-field-project-create")
     WebElement projectKeyInput;
     @FindBy(how = How.XPATH, using = "//span[@aria-label='close']//ancestor::button")
     WebElement abandonTemplateButton;
@@ -34,13 +34,23 @@ public class JiraProjectCreationPage {
     WebElement skipIntegrationButton;
 
     /**
+     * Returns a By for a given project template group on the list
+     *
+     * @param projectTemplateGroupName  Name of the project template group
+     * @return                          By locator for given template group button
+     */
+    private By getProjectTemplateGroupButtonBy(String projectTemplateGroupName){
+        return By.xpath("//span[text()='"+projectTemplateGroupName+"']//parent::button");
+    }
+
+    /**
      * Returns a By for a given project template on the list
      *
      * @param projectTemplateName   Name of the template
      * @return                      By locator for given template button
      */
     private By getProjectTemplateButtonBy(String projectTemplateName){
-        return By.cssSelector("button[aria-label='"+projectTemplateName+"']");
+        return By.cssSelector("button[aria-label='"+projectTemplateName+"'][data-testid]");
     }
 
     /**
@@ -53,6 +63,16 @@ public class JiraProjectCreationPage {
         waitAndClick(
                 templateBy, "Could not select a Software Development project template " + projectTemplateName
         );
+    }
+
+    /**
+     * Selects a project template group (from left-hand menu)
+     *
+     * @param projectTemplateGroup  Name of the project template group eg. "Software Development"
+     */
+    public void selectProjectTemplateGroup(String projectTemplateGroup){
+        waitAndClick(getProjectTemplateGroupButtonBy(projectTemplateGroup),
+                "Could not select a "+projectTemplateGroup+" project template group");
     }
 
     /**

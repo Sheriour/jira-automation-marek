@@ -67,10 +67,11 @@ public class JiraSteps
         iAmOnTheProjectListPage();
     }
 
-    @And("I create a {projectTemplate} {projectManagement} project")
+    @And("I create a software {projectTemplate} {projectManagement} project")
     public void iCreateAProject(String projectTemplateName, String projectManagement)
     {
         JiraProjectCreationPage projectCreationPage = getPage(JiraProjectCreationPage.class);
+        projectCreationPage.selectProjectTemplateGroup("Software development");
         projectCreationPage.selectProjectTemplate(projectTemplateName);
         projectCreationPage.useProjectTemplate();
 
@@ -205,13 +206,8 @@ public class JiraSteps
         GeneralUtils.waitForSeconds(seconds);
     }
 
-    @Given("I try stuff")
-    public void iTryStuff() {
-        JiraApi.GetInstance().getProjectIdByName("Marek Automation");
-    }
-
-    @When("I test stuff")
-    public void iTestStuff() {
-
+    @And("I select {string} project template group")
+    public void iSelectProjectTemplateGroup(String projectTemplateGroup) {
+        getPage(JiraProjectCreationPage.class).selectProjectTemplateGroup(projectTemplateGroup);
     }
 }

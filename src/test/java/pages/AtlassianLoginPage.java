@@ -1,11 +1,13 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static system.DriverCoordinator.getWebDriver;
+import static system.DriverCoordinator.*;
 import static utils.WebElementUtils.waitAndClick;
 import static utils.WebElementUtils.waitAndFillField;
 
