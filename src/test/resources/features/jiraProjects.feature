@@ -33,6 +33,7 @@ Feature: Jira Projects
     And I select "Software development" project template group
     And I select "Kanban" project template
     And I abandon previewed project template
+    And I select "Software development" project template group
     And I create a Bug Tracking project
     Then I see project header contains created project name
 
@@ -43,6 +44,7 @@ Feature: Jira Projects
     And I select "Kanban" project template
     And I use currently selected project template
     And I change project template
+    And I select "Software development" project template group
     And I create a Bug Tracking project
     Then I see project header contains created project name
 
@@ -54,5 +56,6 @@ Feature: Jira Projects
     And I use currently selected project template
     And I select team managed project type
     And I change project template
+    And I select "Software development" project template group
     And I create a Bug Tracking project
     Then I see project header contains created project name
