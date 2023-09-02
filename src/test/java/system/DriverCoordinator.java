@@ -15,12 +15,22 @@ public class DriverCoordinator
 {
     public static ThreadLocal<WebDriver> webDriver = new ThreadLocal<>();
 
+    public static String remote_url_chrome = "http://localhost:4444/wd/hub";
+
+    /**
+     * Checks if a webdriver instance already exists
+     *
+     * @return True if a webdriver instance exists, false otherwise
+     */
     public static boolean hasDriver(){
         return webDriver.get() != null;
     }
 
-    public static String remote_url_chrome = "http://localhost:4444/wd/hub";
-
+    /**
+     * Returns the webdriver instance. Will lazy-load if necessary.
+     *
+     * @return  Webdriver instance
+     */
     public static WebDriver getWebDriver(){
         WebDriver driver = webDriver.get();
         if (driver == null) {
@@ -45,15 +55,29 @@ public class DriverCoordinator
         return driver;
     }
 
+    /**
+     * Quits the webdriver instance and cleans up the reference
+     */
     public static void quitWebDriver(){
         getWebDriver().quit();
         webDriver.remove();
     }
 
+    /**
+     * Constructs a default 10-second webdriver explicit wait
+     *
+     * @return A 10-decond webdriver explicit wait
+     */
     public static WebDriverWait getWait(){
         return new WebDriverWait(getWebDriver(), Duration.ofSeconds(10));
     }
 
+
+    /**
+     * Constructs a default webdriver explicit wait with custom wait time
+     *
+     * @return A webdriver explicit wait with custom wait time
+     */
     public static WebDriverWait getWait(int seconds){
         return new WebDriverWait(getWebDriver(), Duration.ofSeconds(seconds));
     }
