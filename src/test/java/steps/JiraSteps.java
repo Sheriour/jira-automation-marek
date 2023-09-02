@@ -38,6 +38,19 @@ public class JiraSteps
         atlassianLoginPage.enterPassword(password);
     }
 
+    @Given("I am on Atlassian login page")
+    public void iAmOnAtlassianLoginPage()
+    {
+        getPage(AtlassianLoginPage.class).visit();
+    }
+
+    @When("I enter an invalid username")
+    public void iEnterAnInvalidUsername()
+    {
+        getPage(AtlassianLoginPage.class).enterUsername("asinvalidastheycome");
+    }
+
+
     @Then("I verify that user has logged in")
     public void iVerifyUserHasLoggedIn()
     {
@@ -65,6 +78,33 @@ public class JiraSteps
         iLoginToAtlassian();
         iNavigateToJiraSoftware();
         iAmOnTheProjectListPage();
+    }
+
+    @Then("I don't see the password input")
+    public void iDonTSeeThePasswordInput() {
+        Assert.assertFalse(
+                getPage(AtlassianLoginPage.class).isPasswordFieldVisible(),
+                "Password field was visible when it was expected to be hidden!"
+        );
+    }
+
+    @Then("I see a warning informing me that the password was invalid")
+    public void iSeeAWarningInformingMeThatThePasswordWasInvalid() {
+        Assert.assertTrue(
+                getPage(AtlassianLoginPage.class).isPasswordWarningVisible(),
+                "Invalid password warning was not visible!"
+        );
+
+    }
+
+    @When("I enter a valid username and invalid password")
+    public void iEnterAValidUsernameAndInvalidPassword() {
+        String username = PropertyManager.GetInstance().getProperty("jira_api_username");;
+
+        AtlassianLoginPage atlassianLoginPage = getPage(AtlassianLoginPage.class);
+        atlassianLoginPage.visit();
+        atlassianLoginPage.enterUsername(username);
+        atlassianLoginPage.enterPassword("definitelywrong");
     }
 
     @And("I create a software {projectTemplate} {projectManagement} project")

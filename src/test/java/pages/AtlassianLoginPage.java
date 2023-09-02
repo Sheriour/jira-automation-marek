@@ -18,6 +18,8 @@ public class AtlassianLoginPage {
     WebElement passwordInput;
     @FindBy(how = How.ID, using = "login-submit")
     WebElement submit; //Username/Password are both handled by the same button
+    @FindBy(how = How.CSS, using = "section[data-testid='form-error']")
+    WebElement invalidPasswordWarning;
 
     /**
      * Navigate to Atlassian login page
@@ -44,5 +46,33 @@ public class AtlassianLoginPage {
     public void enterPassword(String password){
         waitAndFillField(passwordInput, password, "Could not fill out password!");
         waitAndClick(submit);
+    }
+
+    /**
+     * Check if password input becomes visible over next 5 seconds
+     *
+     * @return True if password input was visible, false otherwise
+     */
+    public boolean isPasswordFieldVisible(){
+        try {
+            getWait(5).until(ExpectedConditions.visibilityOf(passwordInput));
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+
+    /**
+     * Check if invalid password warning over next 5 seconds
+     *
+     * @return True if password warning was visible, false otherwise
+     */
+    public boolean isPasswordWarningVisible(){
+        try {
+            getWait(5).until(ExpectedConditions.visibilityOf(invalidPasswordWarning));
+            return true;
+        } catch (Exception e){
+            return false;
+        }
     }
 }

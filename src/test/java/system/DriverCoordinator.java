@@ -53,4 +53,8 @@ public class DriverCoordinator
     public static WebDriverWait getWait(){
         return new WebDriverWait(getWebDriver(), Duration.ofSeconds(10));
     }
+
+    public static WebDriverWait getWait(int seconds){
+        return new WebDriverWait(getWebDriver(), Duration.ofSeconds(seconds));
+    }
 }
