@@ -1,11 +1,11 @@
-Feature: Jira Projects
+Feature: Jira Project Creation
 
   Background:
     Given I log into Jira Software
+    When I start creating a new Project
 
   @Run
   Scenario: Create a team managed kanban project
-    When I start creating a new Project
     And I create a software Kanban team-managed project
     Then I see project header contains created project name
     And I see project type is "team-managed"
@@ -13,7 +13,6 @@ Feature: Jira Projects
 
   @Run
   Scenario: Create a company managed scrum project
-    When I start creating a new Project
     And I create a software Scrum company-managed project
     Then I see project header contains created project name
     And I see project type is "company-managed"
@@ -21,7 +20,6 @@ Feature: Jira Projects
 
   @Run
   Scenario: Create a Bug tracking Project
-    When I start creating a new Project
     And I select "Software development" project template group
     And I create a Bug Tracking project
     Then I see project header contains created project name
@@ -29,7 +27,6 @@ Feature: Jira Projects
 
   @Run
   Scenario: Switch project template after initial preview
-    When I start creating a new Project
     And I select "Software development" project template group
     And I select "Kanban" project template
     And I abandon previewed project template
@@ -39,7 +36,6 @@ Feature: Jira Projects
 
   @Run
   Scenario: Switch project template while previewing project type
-    When I start creating a new Project
     And I select "Software development" project template group
     And I select "Kanban" project template
     And I use currently selected project template
@@ -50,7 +46,6 @@ Feature: Jira Projects
 
   @Run
   Scenario: Switch project template while providing project
-    When I start creating a new Project
     And I select "Software development" project template group
     And I select "Kanban" project template
     And I use currently selected project template

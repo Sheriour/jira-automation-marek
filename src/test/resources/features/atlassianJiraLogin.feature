@@ -4,8 +4,6 @@ Feature: Atlassian and Jira Login
   Scenario: Successfully login to Jira
     Given I login to Atlassian
     Then I verify that user has logged in
-    And I navigate to Jira Software
-    Then I am on the project list page
 
   @Run
   Scenario: Attempt to login with an invalid username
