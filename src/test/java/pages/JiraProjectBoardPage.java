@@ -12,8 +12,8 @@ public class JiraProjectBoardPage {
 
     @FindBy (how = How.CSS, using = "h2[data-item-title='true']")
     WebElement projectHeader;
-    @FindBy (how = How.XPATH, using = "//h3[text()='There are no active sprints']")
-    WebElement noActiveSprintsScrum;
+    @FindBy (how = How.XPATH, using = "//div[text()='Get started in the backlog']")
+    WebElement scrumMessage;
     @FindBy (how = How.XPATH, using = "//div[text()='Create issue']")
     WebElement kanbanCreateIssue;
     @FindBy (how = How.XPATH, using = "//h1/span[text()='Issues']")
@@ -84,7 +84,8 @@ public class JiraProjectBoardPage {
      */
     public boolean isProjectBoardForScrum(){
         try {
-            getWait().until(ExpectedConditions.visibilityOf(noActiveSprintsScrum));
+            int x = 5;
+            getWait().until(ExpectedConditions.visibilityOf(scrumMessage));
             return true;
         }
         catch (Exception e){
